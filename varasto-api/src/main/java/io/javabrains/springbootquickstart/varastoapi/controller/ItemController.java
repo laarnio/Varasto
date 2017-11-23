@@ -1,5 +1,6 @@
 package io.javabrains.springbootquickstart.varastoapi.controller;
 
+import io.javabrains.springbootquickstart.varastoapi.domain.Category;
 import io.javabrains.springbootquickstart.varastoapi.domain.Item;
 import io.javabrains.springbootquickstart.varastoapi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +14,29 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/items")
-    public List<Item> getAllItems(){
-        return itemService.getAllItems();
+    @RequestMapping("/categories/{id}/items")
+    public List<Item> getAllItems(@PathVariable String id){
+        return itemService.getAllItems(id);
     }
 
-    @RequestMapping("/items/{id}")
+    @RequestMapping("/categories/{categoryId}/items/{id}")
     public Item getItem(@PathVariable Long id) {
         return itemService.getItem(id);
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/items")
-    public void addItem(@RequestBody Item item){
+    @RequestMapping(method=RequestMethod.POST, value="/categories/{categoryId}/items")
+    public void addItem(@RequestBody Item item, @PathVariable String categoryId){
+        item.setCategory(new Category(categoryId, ""));
         itemService.addItem(item);
     }
 
-    @RequestMapping(method=RequestMethod.PUT, value="/items/{id}")
-    public void updateItem(@RequestBody Item item, @PathVariable Long id){
-        itemService.updateItem(id, item);
+    @RequestMapping(method=RequestMethod.PUT, value="/categories/{categoryId}/items/{id}")
+    public void updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable String categoryId){
+        item.setCategory(new Category(categoryId, ""));
+        itemService.updateItem(item);
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="/items/{id}")
+    @RequestMapping(method=RequestMethod.DELETE, value="/categories/{categoryId}/items/{id}")
     public void deleteItem(@PathVariable Long id){
         itemService.deleteItem(id);
     }

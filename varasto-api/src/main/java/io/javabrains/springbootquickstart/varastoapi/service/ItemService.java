@@ -15,9 +15,9 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public List<Item> getAllItems() {
+    public List<Item> getAllItems(String categoryId) {
         List<Item> items = new ArrayList<>();
-        itemRepository.findAll()
+        itemRepository.findByCategoryId(categoryId)
                 .forEach(items::add);
         return items;
     }
@@ -30,7 +30,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 //TODO: selvitä tää update
-    public void updateItem(Long id, Item item) {
+    public void updateItem(Item item) {
         itemRepository.save(item);
     }
 

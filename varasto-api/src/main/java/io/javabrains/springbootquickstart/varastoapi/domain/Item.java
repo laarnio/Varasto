@@ -1,10 +1,7 @@
 package io.javabrains.springbootquickstart.varastoapi.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -15,16 +12,20 @@ public class Item {
     private String name, meta;
     private boolean borrowed;
 
+    @ManyToOne
+    private Category category;
+
     public Item() {
 
     }
 
-    public Item(Long id, String name, String meta, boolean borrowed) {
+    public Item(Long id, String name, String meta, boolean borrowed, String categoryId) {
         super();
         this.id = id;
         this.name = name;
         this.meta = meta;
         this.borrowed = borrowed;
+        this.category = new Category(categoryId, "");
     }
 
     public Long getId() {
@@ -59,4 +60,11 @@ public class Item {
         this.meta = meta;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
