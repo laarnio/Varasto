@@ -1,6 +1,6 @@
-package io.javabrains.springbootquickstart.varastoapi.repository;
+package net.pirkat.varastoapi.repository;
 
-import io.javabrains.springbootquickstart.varastoapi.domain.Category;
+import net.pirkat.varastoapi.domain.Category;
 import org.springframework.data.repository.CrudRepository;
 
 

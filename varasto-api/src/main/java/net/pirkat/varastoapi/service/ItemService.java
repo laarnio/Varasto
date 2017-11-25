@@ -1,12 +1,11 @@
-package io.javabrains.springbootquickstart.varastoapi.service;
+package net.pirkat.varastoapi.service;
 
-import io.javabrains.springbootquickstart.varastoapi.domain.Item;
-import io.javabrains.springbootquickstart.varastoapi.repository.ItemRepository;
+import net.pirkat.varastoapi.domain.Item;
+import net.pirkat.varastoapi.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,12 +25,12 @@ public class ItemService {
         return itemRepository.findOne(id);
     }
 
-    public void addItem(Item item) {
-        itemRepository.save(item);
+    public Item addItem(Item item) {
+        return itemRepository.save(item);
     }
 //TODO: selvitä tää update
-    public void updateItem(Item item) {
-        itemRepository.save(item);
+    public Item updateItem(Item item) {
+        return itemRepository.save(item);
     }
 
     public void deleteItem(Long id) {

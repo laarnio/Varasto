@@ -1,7 +1,7 @@
-package io.javabrains.springbootquickstart.varastoapi.controller;
+package net.pirkat.varastoapi.controller;
 
-import io.javabrains.springbootquickstart.varastoapi.domain.Category;
-import io.javabrains.springbootquickstart.varastoapi.service.CategoryService;
+import net.pirkat.varastoapi.domain.Category;
+import net.pirkat.varastoapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +24,13 @@ public class CategoryController {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/categories")
-    public void addCategory(@RequestBody Category category){
-        categoryService.addCategory(category);
+    public Category addCategory(@RequestBody Category category){
+        return categoryService.addCategory(category);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/categories/{id}")
-    public void updateCategory(@RequestBody Category category, @PathVariable String id){
-        categoryService.updateCategory(id, category);
+    public Category updateCategory(@RequestBody Category category, @PathVariable String id){
+        return categoryService.updateCategory(id, category);
     }
 
     @RequestMapping(method=RequestMethod.DELETE, value="/categories/{id}")

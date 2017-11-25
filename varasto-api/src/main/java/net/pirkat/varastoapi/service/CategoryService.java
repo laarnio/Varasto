@@ -1,7 +1,7 @@
-package io.javabrains.springbootquickstart.varastoapi.service;
+package net.pirkat.varastoapi.service;
 
-import io.javabrains.springbootquickstart.varastoapi.domain.Category;
-import io.javabrains.springbootquickstart.varastoapi.repository.CategoryRepository;
+import net.pirkat.varastoapi.domain.Category;
+import net.pirkat.varastoapi.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +25,12 @@ public class CategoryService {
         return categoryRepository.findOne(id);
     }
 
-    public void addCategory(Category category) {
-        categoryRepository.save(category);
+    public Category addCategory(Category category) {
+        return categoryRepository.save(category);
     }
 //TODO: selvitä tää update
-    public void updateCategory(String id, Category category) {
-        categoryRepository.save(category);
+    public Category updateCategory(String id, Category category) {
+        return categoryRepository.save(category);
     }
 
     public void deleteCategory(String id) {

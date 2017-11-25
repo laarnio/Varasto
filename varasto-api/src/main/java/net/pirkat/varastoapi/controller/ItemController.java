@@ -1,8 +1,8 @@
-package io.javabrains.springbootquickstart.varastoapi.controller;
+package net.pirkat.varastoapi.controller;
 
-import io.javabrains.springbootquickstart.varastoapi.domain.Category;
-import io.javabrains.springbootquickstart.varastoapi.domain.Item;
-import io.javabrains.springbootquickstart.varastoapi.service.ItemService;
+import net.pirkat.varastoapi.domain.Category;
+import net.pirkat.varastoapi.domain.Item;
+import net.pirkat.varastoapi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,15 +25,16 @@ public class ItemController {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/categories/{categoryId}/items")
-    public void addItem(@RequestBody Item item, @PathVariable String categoryId){
+    public Item addItem(@RequestBody Item item, @PathVariable String categoryId){
         item.setCategory(new Category(categoryId, ""));
-        itemService.addItem(item);
+        return itemService.addItem(item);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/categories/{categoryId}/items/{id}")
-    public void updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable String categoryId){
+    public Item updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable String categoryId){
+        item.setId(id);
         item.setCategory(new Category(categoryId, ""));
-        itemService.updateItem(item);
+        return itemService.updateItem(item);
     }
 
     @RequestMapping(method=RequestMethod.DELETE, value="/categories/{categoryId}/items/{id}")

@@ -1,4 +1,4 @@
-package io.javabrains.springbootquickstart.varastoapi;
+package net.pirkat.varastoapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VarastoApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VarastoApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(VarastoApiApplication.class, args);
+    }
 }
