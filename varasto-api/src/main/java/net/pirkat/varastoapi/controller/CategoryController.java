@@ -30,6 +30,7 @@ public class CategoryController {
 
     @RequestMapping(method=RequestMethod.PUT, value="/categories/{id}")
     public Category updateCategory(@RequestBody Category category, @PathVariable String id){
+        category.setId(id);
         return categoryService.updateCategory(id, category);
     }
 

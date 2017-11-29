@@ -1,6 +1,5 @@
 package net.pirkat.varastoapi.service;
 
-import net.pirkat.varastoapi.domain.Item;
 import net.pirkat.varastoapi.domain.User;
 import net.pirkat.varastoapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
