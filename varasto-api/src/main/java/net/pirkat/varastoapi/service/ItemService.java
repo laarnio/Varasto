@@ -18,7 +18,7 @@ public class ItemService {
     public List<Item> getAllItems(Long categoryId) {
         List<Item> items = new ArrayList<>();
         itemRepository.findByCategoryId(categoryId)
-                .addAll(items);
+                .forEach(items::add);
         return items;
     }
 
