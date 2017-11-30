@@ -13,7 +13,7 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
+    //Get all
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         categoryRepository.findAll()
@@ -21,18 +21,22 @@ public class CategoryService {
         return categories;
     }
 
+    //Get one
     public Category getCategory(Long id) {
         return categoryRepository.findOne(id);
     }
 
+    //Post new
     public Category addCategory(Category category) {
         return categoryRepository.save(category);
     }
-//TODO: selvitä tää update
+
+    //Update
     public Category updateCategory(Long id, Category category) {
         return categoryRepository.save(category);
     }
 
+    //Delete
     public void deleteCategory(Long id) {
         categoryRepository.delete(id);
     }

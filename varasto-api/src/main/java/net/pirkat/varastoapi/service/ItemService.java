@@ -14,25 +14,29 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public List<Item> getAllItems(String categoryId) {
+    //Get all
+    public List<Item> getAllItems(Long categoryId) {
         List<Item> items = new ArrayList<>();
         itemRepository.findByCategoryId(categoryId)
-                .forEach(items::add);
+                .addAll(items);
         return items;
     }
 
+    //Get one
     public Item getItem(Long id) {
         return itemRepository.findOne(id);
     }
 
+    //Post new
     public Item addItem(Item item) {
         return itemRepository.save(item);
     }
-//TODO: selvitä tää update
+    //TODO: selvitä tää update
+    //Update
     public Item updateItem(Item item) {
         return itemRepository.save(item);
     }
-
+    //Delete
     public void deleteItem(Long id) {
         itemRepository.delete(id);
     }

@@ -16,7 +16,7 @@ public class Reservation {
     private Long id;
     @CreationTimestamp
     private Date created;
-
+    //List of items the borrower wants to borrow
     @OneToMany
     private List<Item> items;
 

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
-    public List<Item> findByCategoryId(String categoryId);
+    List<Item> findByCategoryId(Long categoryId);
 }

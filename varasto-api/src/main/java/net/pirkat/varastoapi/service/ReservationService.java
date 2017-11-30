@@ -14,17 +14,19 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    //Get all
     public List<Reservation> getAllReservations() {
         List<Reservation> reservations = new ArrayList<>();
         reservationRepository.findAll()
                 .forEach(reservations::add);
         return reservations;
     }
-
+    //Get one
     public Reservation getReservation(Long id) {
         return reservationRepository.findOne(id);
     }
 
+    //Post new
     public Reservation addReservation(Reservation reservation) {
         return reservationRepository.save(reservation);
     }
