@@ -25,15 +25,15 @@ public class ItemController {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/categories/{categoryId}/items")
-    public Item addItem(@RequestBody Item item, @PathVariable String categoryId){
-        item.setCategory(new Category(categoryId, ""));
+    public Item addItem(@RequestBody Item item, @PathVariable Long categoryId){
+        item.setCategory(new Category(categoryId, "", ""));
         return itemService.addItem(item);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/categories/{categoryId}/items/{id}")
-    public Item updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable String categoryId){
+    public Item updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable Long categoryId){
         item.setId(id);
-        item.setCategory(new Category(categoryId, ""));
+        item.setCategory(new Category(categoryId,"", ""));
         return itemService.updateItem(item);
     }
 

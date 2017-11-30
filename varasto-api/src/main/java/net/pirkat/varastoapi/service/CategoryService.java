@@ -21,7 +21,7 @@ public class CategoryService {
         return categories;
     }
 
-    public Category getCategory(String id) {
+    public Category getCategory(Long id) {
         return categoryRepository.findOne(id);
     }
 
@@ -29,11 +29,11 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 //TODO: selvitä tää update
-    public Category updateCategory(String id, Category category) {
+    public Category updateCategory(Long id, Category category) {
         return categoryRepository.save(category);
     }
 
-    public void deleteCategory(String id) {
+    public void deleteCategory(Long id) {
         categoryRepository.delete(id);
     }
 }
