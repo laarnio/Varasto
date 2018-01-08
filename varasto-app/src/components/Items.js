@@ -53,13 +53,15 @@ export class Items extends React.Component {
         return (
             <div>
                 <h3>Lainatavarat</h3>
-                <ul>
+                <ul className="list-group">
                     {this.state.data.map(category =>
-                        <li key={category.category.id}>{category.category.name}
+                        <li className="list-group-item" key={category.category.id}>{category.category.name}
                             <ul>
                                 {category.items.map(item =>
-                                    <li key={item.id}>{item.name} </li> )}
+                                    <a href="#" className="list-group-item" key={item.id}>{item.name} </a> )}
+                                    <a href={"/categories/"+category.category.id+"/add"} className="list-group-item">Lisää uusi +</a>
                             </ul>
+
                         </li>
                     )}
                 </ul>
