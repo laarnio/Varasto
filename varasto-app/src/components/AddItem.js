@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 
+
 export class AddItem extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             categories: [],
-            current: ''
+            selectedCategory: '',
         };
     }
 
@@ -17,29 +18,77 @@ export class AddItem extends React.Component {
                 let temp = '';
                 res.data.forEach(category => {
                     if(category.id.toString() === this.props.match.params.id) {
-                        temp = category.name;
+                        temp = category.id;
                     }
                 });
-                this.setState({categories: res.data,
-                current: temp})
+                this.setState({
+                    categories: res.data,
+                    data: {
+                        category: temp,
+                        borrowed: false,
+                    }
+                })
             });
     }
-    getCurrentCategory() {
-        this.state.categories.forEach(category => {
-            if(category.id.toString() === this.props.match.params.id) {
-                console.log(category.name);
-                return category.name;
-            }
+
+    handleSubmit = (e) => {
+        if(!this.name.value){
+            alert("Aseta nimi!");
+            return;
+        }
+        let newItemRef = {
+            name: this.name.value,
+            borrowed: false,
+            meta: ''
+        };
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/categories/' + this.state.selectedCategory+ '/items',
+            data: newItemRef
         });
+    };
 
-
+    handleChange(e) {
+        this.setState({ data: {
+            category: e.target.value
+        }})
     }
 
     render() {
         return (
             <div>
                 <h3>Lisää uusi tavara</h3>
-                Category: {this.state.current}
+                <form onSubmit={this.handleSubmit}>
+
+                    <label>
+                        Kategoria:
+                        <select value={this.state.selectedCategory} onChange={this.handleChange.bind(this)}>
+                            {this.state.categories.map(category => {
+                                if(category.id === this.stateselectedCategory) {
+                                    console.log(category.name);
+                                    return(<option value={category.id} key={category.id}>{category.name}</option>)
+                                }
+                                else {
+                                    return (<option value={category.id} key={category.id}>{category.name}</option>)
+                                }
+                                })}
+                        </select>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <label>
+                        Nimi:
+                        <input ref={(name) => this.name = name} type='text' />
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" />
+                </form>
+                <br/>
+
+
+
             </div>
         );
     }

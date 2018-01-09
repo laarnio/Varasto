@@ -57,9 +57,15 @@ export class Items extends React.Component {
                     {this.state.data.map(category =>
                         <li className="list-group-item" key={category.category.id}>{category.category.name}
                             <ul>
-                                {category.items.map(item =>
-                                    <a href="#" className="list-group-item" key={item.id}>{item.name} </a> )}
-                                    <a href={"/categories/"+category.category.id+"/add"} className="list-group-item">Lisää uusi +</a>
+                                {
+                                    category.items.map(item => {
+                                        if(!item.borrowed) {
+                                            return (<a href="#" className="list-group-item list-group-item-success" key={item.id}>{item.name} </a> );
+                                        }
+                                        return (<a href="#" className="list-group-item list-group-item-danger" key={item.id}>{item.name} </a> );
+                                    })
+                                }
+                                    <a href={"/categories/"+category.category.id+"/add"} className="list-group-item list-group-item-info">Lisää uusi +</a>
                             </ul>
 
                         </li>
