@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {Item} from "./Item";
+import {CategoryCmp} from "./CategoryCmp";
 
 export class Items extends React.Component {
 
@@ -56,20 +56,7 @@ export class Items extends React.Component {
                 <Link className="list-group-item list-group-item-info" to={"/categories/add"}>+ Uusi kategoria</Link>
                 <ul className="list-group">
                     {this.state.data.map(category =>
-                        <li className="list-group-item" key={category.category.id}>{category.category.name}
-                            <ul>
-                                {
-                                    category.items.map(item => {
-                                            return (
-                                                <Item item={item} categoryId={category.category.id} />
-                                            );
-                                    })
-
-                                }
-                                <Link className="list-group-item list-group-item-info" to={"/categories/"+category.category.id+"/add"}>+ Lisää uusi</Link>
-                            </ul>
-
-                        </li>
+                       <CategoryCmp key={category.category.id} category={category} />
                     )}
                 </ul>
             </div>

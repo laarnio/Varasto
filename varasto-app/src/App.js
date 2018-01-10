@@ -12,7 +12,7 @@ import {Login} from "./components/Login";
 import {Items} from "./components/Items";
 import {AddItem} from "./components/AddItem";
 import {AddCategory} from "./components/AddCategory";
-import {Item} from "./components/Item";
+import {ItemCmp} from "./components/ItemCmp";
 
 class App extends Component {
   render() {
@@ -26,7 +26,7 @@ class App extends Component {
                 <Route path={"/items"} component={Items} />
                 <Route path={"/categories/add"} component={AddCategory} />
                 <Route path={"/categories/:id/add"} component={AddItem} />
-                <Route path={"/categories/:categoryId/items/:item"} component={Item} />
+                <Route path={"/categories/:categoryId/items/:item"} component={ItemCmp} />
             </div>
         </Router>
     );
