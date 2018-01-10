@@ -30,6 +30,7 @@ public class ItemService {
     public Item addItem(Item item) {
         return itemRepository.save(item);
     }
+
     //TODO: selvitä tää update
     //Update
     public Item updateItem(Item item) {

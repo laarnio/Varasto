@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class ItemController {
 
@@ -32,6 +32,7 @@ public class ItemController {
         item.setCategory(new Category(categoryId, "", ""));
         return itemService.addItem(item);
     }
+
     //Update item and set a category for it
     @RequestMapping(method=RequestMethod.PUT, value="/categories/{categoryId}/items/{id}")
     public Item updateItem(@RequestBody Item item, @PathVariable Long id, @PathVariable Long categoryId){
@@ -39,6 +40,7 @@ public class ItemController {
         item.setCategory(new Category(categoryId,"", ""));
         return itemService.updateItem(item);
     }
+    
     //Delete item
     @RequestMapping(method=RequestMethod.DELETE, value="/categories/{categoryId}/items/{id}")
     public void deleteItem(@PathVariable Long id){

@@ -21,6 +21,7 @@ public class UserService {
                 .forEach(users::add);
         return users;
     }
+
     //Get one
     public User getUser(Long id) {
         return userRepository.findOne(id);

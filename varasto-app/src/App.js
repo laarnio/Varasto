@@ -11,6 +11,8 @@ import {Header} from "./components/Header";
 import {Login} from "./components/Login";
 import {Items} from "./components/Items";
 import {AddItem} from "./components/AddItem";
+import {AddCategory} from "./components/AddCategory";
+import {Item} from "./components/Item";
 
 class App extends Component {
   render() {
@@ -19,10 +21,12 @@ class App extends Component {
             <div>
                 <Header />
                 <hr/>
-                <Route exact path="/" component={Home}/>
+                <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path={"/items"} component={Items} />
+                <Route path={"/categories/add"} component={AddCategory} />
                 <Route path={"/categories/:id/add"} component={AddItem} />
+                <Route path={"/categories/:categoryId/items/:item"} component={Item} />
             </div>
         </Router>
     );

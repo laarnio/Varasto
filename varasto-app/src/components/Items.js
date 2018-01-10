@@ -1,13 +1,17 @@
 import React from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import {Item} from "./Item";
 
 export class Items extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            categoryMounted: false
         };
+
     }
 
     componentWillMount() {
@@ -44,34 +48,30 @@ export class Items extends React.Component {
         )
     }
 
-    log() {
-        console.log(this.state.data);
-
-    }
-
     render() {
+
         return (
-            <div>
+            <div className="container">
                 <h3>Lainatavarat</h3>
+                <Link className="list-group-item list-group-item-info" to={"/categories/add"}>+ Uusi kategoria</Link>
                 <ul className="list-group">
                     {this.state.data.map(category =>
                         <li className="list-group-item" key={category.category.id}>{category.category.name}
                             <ul>
                                 {
                                     category.items.map(item => {
-                                        if(!item.borrowed) {
-                                            return (<a href="#" className="list-group-item list-group-item-success" key={item.id}>{item.name} </a> );
-                                        }
-                                        return (<a href="#" className="list-group-item list-group-item-danger" key={item.id}>{item.name} </a> );
+                                            return (
+                                                <Item item={item} />
+                                            );
                                     })
+
                                 }
-                                    <a href={"/categories/"+category.category.id+"/add"} className="list-group-item list-group-item-info">Lisää uusi +</a>
+                                <Link className="list-group-item list-group-item-info" to={"/categories/"+category.category.id+"/add"}>+ Lisää uusi</Link>
                             </ul>
 
                         </li>
                     )}
                 </ul>
-                <button onClick={this.log.bind(this)}>Kukkuu</button>
             </div>
         );
     }

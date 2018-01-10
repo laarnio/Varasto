@@ -8,7 +8,7 @@ export class AddItem extends React.Component {
         super(props);
         this.state = {
             categories: [],
-            selectedCategory: '',
+            selectedCategory: ''
         };
     }
 
@@ -23,10 +23,7 @@ export class AddItem extends React.Component {
                 });
                 this.setState({
                     categories: res.data,
-                    data: {
-                        category: temp,
-                        borrowed: false,
-                    }
+                    selectedCategory: temp
                 })
             });
     }
@@ -49,14 +46,12 @@ export class AddItem extends React.Component {
     };
 
     handleChange(e) {
-        this.setState({ data: {
-            category: e.target.value
-        }})
+        this.setState({ selectedCategory: e.target.value});
     }
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h3>Lisää uusi tavara</h3>
                 <form onSubmit={this.handleSubmit}>
 
@@ -64,7 +59,7 @@ export class AddItem extends React.Component {
                         Kategoria:
                         <select value={this.state.selectedCategory} onChange={this.handleChange.bind(this)}>
                             {this.state.categories.map(category => {
-                                if(category.id === this.stateselectedCategory) {
+                                if(category.id === this.state.selectedCategory) {
                                     console.log(category.name);
                                     return(<option value={category.id} key={category.id}>{category.name}</option>)
                                 }
