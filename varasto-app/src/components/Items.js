@@ -61,7 +61,7 @@ export class Items extends React.Component {
                                 {
                                     category.items.map(item => {
                                             return (
-                                                <Item item={item} />
+                                                <Item item={item} categoryId={category.category.id} />
                                             );
                                     })
 
