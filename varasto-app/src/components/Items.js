@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {CategoryCmp} from "./CategoryCmp";
+import {ItemCart} from "./ItemCart"
 
 export class Items extends React.Component {
 
@@ -9,7 +10,8 @@ export class Items extends React.Component {
         super(props);
         this.state = {
             data: [],
-            categoryMounted: false
+            categoryMounted: false,
+            itemCart: []
         };
 
     }
@@ -21,6 +23,8 @@ export class Items extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
+
+
 
     fetchData() {
         let tempCategories = [];
@@ -48,6 +52,25 @@ export class Items extends React.Component {
         )
     }
 
+    emptyCartCallback = () => {
+        this.setState({itemCart: []})
+    };
+
+    addToCartCallback = (item) => {
+        let duplicate = false;
+        this.state.itemCart.forEach(i => {
+            if(i.id === item.id){
+                alert("Tuote on jo korissa!");
+                duplicate = true;
+            }
+        });
+        if(!duplicate) {
+            let temp = this.state.itemCart;
+            temp.push(item);
+            this.setState({itemCart: temp})
+        }
+    };
+
     render() {
 
         return (
@@ -56,9 +79,10 @@ export class Items extends React.Component {
                 <Link className="list-group-item list-group-item-info" to={"/categories/add"}>+ Uusi kategoria</Link>
                 <ul className="list-group">
                     {this.state.data.map(category =>
-                       <CategoryCmp key={category.category.id} category={category} />
+                       <CategoryCmp key={category.category.id} category={category} addToCart={this.addToCartCallback} />
                     )}
                 </ul>
+                <ItemCart itemCart={this.state.itemCart} emptyCart={this.emptyCartCallback} />
             </div>
         );
     }
