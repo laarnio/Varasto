@@ -29,7 +29,7 @@ export class AddItem extends React.Component {
     }
 
     handleSubmit = (e) => {
-        if(!this.name.value){
+        if(!this.name.value) {
             alert("Aseta nimi!");
             return;
         }
@@ -48,7 +48,7 @@ export class AddItem extends React.Component {
     handleChange(e) {
         this.setState({ selectedCategory: e.target.value});
     }
-
+    //TODO: miksi nuo selectissä olevat iffit.
     render() {
         return (
             <div className="container">
@@ -64,7 +64,7 @@ export class AddItem extends React.Component {
                                     return(<option value={category.id} key={category.id}>{category.name}</option>)
                                 }
                                 else {
-                                    return (<option value={category.id} key={category.id}>{category.name}</option>)
+                                    return(<option value={category.id} key={category.id}>{category.name}</option>)
                                 }
                                 })}
                         </select>

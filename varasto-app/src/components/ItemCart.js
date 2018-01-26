@@ -6,19 +6,32 @@ export class ItemCart extends React.Component {
         super(props);
         this.state = {
             itemCart: this.props.itemCart,
-            borrow: ''
+            content1: '',
+            content2: '',
+            users: [],
+            selectedUser: ''
         };
     }
     componentDidMount() {
         let button = <button onClick={this.handleBorrow.bind(this)} className="btn btn-primary">Lainaa</button>;
-        this.setState({borrow: button})
+        axios({
+            method: 'get',
+            url: 'http://localhost:8080/users'
+        }).then(res => {
+
+            this.setState({
+                content1: button,
+                users: res.data
+            });
+        });
+
     }
 
     handleEmpty(ev) {
         ev.stopPropagation();
         this.props.emptyCart();
     }
-    handleSubmit = (e) => {;
+    handleNewSubmit = (e) => {
         if(!this.name.value) {
             alert('Aseta lainaajan nimi!');
             return;
@@ -72,9 +85,42 @@ export class ItemCart extends React.Component {
 
 
     };
-    handleBorrow() {
-        let temp = (<form onSubmit={this.handleSubmit.bind(this)}>
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("valitsit tämän", this.state.selectedUser);
+    };
+
+    handleChange(e) {
+        console.log(e.target.value);
+        this.setState({ selectedUser: e.target.value });
+    }
+
+    handleBorrow() {
+        let content1 =(
+            <form onSubmit={this.handleSubmit.bind(this)}>
+                <label>
+                    Valitse listasta lainaaja:
+                    <select value={this.state.selectedUser.name} onChange={this.handleChange.bind(this)}>
+                        <option value="" defaultValue />
+                        {this.state.users.map(user => {
+                            if(user.id === this.state.selectedCategory) {
+                                console.log(user.name);
+                                return(<option value={user.id} key={user.id}>{user.name}</option>)
+                            }
+                            else {
+                                return(<option value={user.id} key={user.id}>{user.name}</option>)
+                            }
+                        })}
+                    </select>
+                </label>
+                <br/>
+                <input className="btn btn-primary" type="submit" value="Submit" />
+            </form>);
+
+        let content2 = (
+            <form onSubmit={this.handleNewSubmit.bind(this)}>
+                Tai lisää uusi:
             <label>
                 Nimi:
                 <input ref={(name) => this.name = name} type='text' />
@@ -90,7 +136,10 @@ export class ItemCart extends React.Component {
             <br/>
             <input className="btn btn-primary" type="submit" value="Submit" />
         </form>);
-        this.setState({borrow: temp});
+        this.setState({
+            content1: content1,
+            content2: content2
+        });
     }
 
     render() {
@@ -102,7 +151,9 @@ export class ItemCart extends React.Component {
                         <li className="list-group-item list-group-item-success" key={item.id}> {item.name}</li>
                     )}
                 </ul>
-                {this.state.borrow}
+
+                {this.state.content1}
+                {this.state.content2}
                 <button onClick={this.handleEmpty.bind(this)} className="btn btn-primary">Tyhjennä lainauskori</button>
             </div>
         )

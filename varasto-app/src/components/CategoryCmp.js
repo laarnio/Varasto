@@ -18,6 +18,8 @@ export class CategoryCmp extends React.Component {
     }
 
     addToCartCallback = (item) => {
+        item.category = this.state.category.category.id;
+        console.log(item);
         this.props.addToCart(item);
     };
 
