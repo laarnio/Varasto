@@ -31,7 +31,8 @@ export class ItemCart extends React.Component {
         ev.stopPropagation();
         this.props.emptyCart();
     }
-    handleNewSubmit = (e) => {
+
+    handleNewUserSubmit = (e) => {
         if(!this.name.value) {
             alert('Aseta lainaajan nimi!');
             return;
@@ -48,65 +49,34 @@ export class ItemCart extends React.Component {
             alert('Lainakori on tyhjä!');
             return;
         }
+        //TODO: tähän user-POST requestit luomaan uusi asukas
         let borrower = {
             id: 2,
             name: this.name.value,
             apartment: this.apartment.value,
             phoneNumber: this.phoneNumber.value
         };
-        let placeHolder = {
-            id: 1,
-            name: 'matti',
-            apartment: 'yes',
-            phoneNumber: '30'
-        };
-        let newReservationRef = {
-          giver: borrower,
-          borrower: placeHolder,
-          items: this.state.itemCart
-        };
-        newReservationRef.items.forEach(item => {
-            let temp = item;
-            temp.borrowed = true;
-            axios({
-                method: 'put',
-                url: 'http://localhost:8080/categories/' + item.category + '/items/' + item.id,
-                data: temp
-            });
-           item.category = null;
-        });
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/reservations',
-            data: newReservationRef
-        });
-        console.log(this.state.itemCart);
+        this.submitReservation(borrower);
 
 
 
     };
 
-    handleSubmit = (e) => {
-        console.log("valitsit tämän", this.state.selectedUser);
+    submitReservation(borrower) {
+
         let placeHolder = {
             id: 1,
             name: 'matti',
             apartment: 'yes',
             phoneNumber: '30'
         };
-        let borrower = {};
-
-        this.state.users.forEach(user => {
-            if(user.id === parseInt(this.state.selectedUser, 10)){
-                borrower = user;
-            }
-        })
 
         let newReservationRef = {
             giver: placeHolder,
             borrower: borrower,
             items: this.state.itemCart
         };
+
         newReservationRef.items.forEach(item => {
             let temp = item;
             temp.borrowed = true;
@@ -117,24 +87,38 @@ export class ItemCart extends React.Component {
             });
             item.category = null;
         });
+
         axios({
             method: 'post',
             url: 'http://localhost:8080/reservations',
             data: newReservationRef
         });
 
+    }
 
+    handleExistingUserSubmit = (e) => {
+        if(!this.state.selectedUser) {
+            e.preventDefault();
+            alert('Valitse lainaaja!')
+            return;
+        }
 
+        this.submitReservation(this.state.selectedUser);
     };
 
     handleChange(e) {
         console.log(e.target.value);
-        this.setState({ selectedUser: e.target.value });
+        this.state.users.forEach(user => {
+            if(user.id === parseInt(e.target.value, 10)) {
+                this.setState({selectedUser: user});
+            }
+        });
+        //this.setState({ selectedUser: e.target.value });
     }
 
     handleBorrow() {
-        let content1 =(
-            <form onSubmit={this.handleSubmit.bind(this)}>
+        let existingUser =(
+            <form onSubmit={this.handleExistingUserSubmit.bind(this)}>
                 <label>
                     Valitse listasta lainaaja:
                     <select value={this.state.selectedUser.name} onChange={this.handleChange.bind(this)}>
@@ -148,8 +132,8 @@ export class ItemCart extends React.Component {
                 <input className="btn btn-primary" type="submit" value="Submit" />
             </form>);
 
-        let content2 = (
-            <form onSubmit={this.handleNewSubmit.bind(this)}>
+        let newUser = (
+            <form onSubmit={this.handleNewUserSubmit.bind(this)}>
                 Tai lisää uusi:
             <label>
                 Nimi:
@@ -167,8 +151,8 @@ export class ItemCart extends React.Component {
             <input className="btn btn-primary" type="submit" value="Submit" />
         </form>);
         this.setState({
-            content1: content1,
-            content2: content2
+            content1: existingUser,
+            content2: newUser
         });
     }
 
