@@ -87,8 +87,44 @@ export class ItemCart extends React.Component {
     };
 
     handleSubmit = (e) => {
-        e.preventDefault();
         console.log("valitsit tämän", this.state.selectedUser);
+        let placeHolder = {
+            id: 1,
+            name: 'matti',
+            apartment: 'yes',
+            phoneNumber: '30'
+        };
+        let borrower = {};
+
+        this.state.users.forEach(user => {
+            if(user.id === parseInt(this.state.selectedUser, 10)){
+                borrower = user;
+            }
+        })
+
+        let newReservationRef = {
+            giver: placeHolder,
+            borrower: borrower,
+            items: this.state.itemCart
+        };
+        newReservationRef.items.forEach(item => {
+            let temp = item;
+            temp.borrowed = true;
+            axios({
+                method: 'put',
+                url: 'http://localhost:8080/categories/' + item.category + '/items/' + item.id,
+                data: temp
+            });
+            item.category = null;
+        });
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/reservations',
+            data: newReservationRef
+        });
+
+
+
     };
 
     handleChange(e) {
@@ -104,13 +140,7 @@ export class ItemCart extends React.Component {
                     <select value={this.state.selectedUser.name} onChange={this.handleChange.bind(this)}>
                         <option value="" defaultValue />
                         {this.state.users.map(user => {
-                            if(user.id === this.state.selectedCategory) {
-                                console.log(user.name);
-                                return(<option value={user.id} key={user.id}>{user.name}</option>)
-                            }
-                            else {
-                                return(<option value={user.id} key={user.id}>{user.name}</option>)
-                            }
+                            return(<option value={user.id} key={user.id}>{user.name}</option>)
                         })}
                     </select>
                 </label>
