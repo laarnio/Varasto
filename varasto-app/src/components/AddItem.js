@@ -15,15 +15,8 @@ export class AddItem extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:8080/categories')
             .then(res => {
-                let temp = '';
-                res.data.forEach(category => {
-                    if(category.id.toString() === this.props.match.params.id) {
-                        temp = category.id;
-                    }
-                });
                 this.setState({
-                    categories: res.data,
-                    selectedCategory: temp
+                    categories: res.data
                 })
             });
     }
@@ -32,6 +25,9 @@ export class AddItem extends React.Component {
         if(!this.name.value) {
             alert("Aseta nimi!");
             return;
+        }
+        if(!this.state.selectedCategory){
+            alert('Aseta Kategoria!');
         }
         let newItemRef = {
             name: this.name.value,
@@ -51,21 +47,16 @@ export class AddItem extends React.Component {
     //TODO: miksi nuo selectissä olevat iffit.
     render() {
         return (
-            <div className="container">
+            <div className="list-group-item">
                 <h3>Lisää uusi tavara</h3>
                 <form onSubmit={this.handleSubmit}>
 
                     <label>
                         Kategoria:
-                        <select value={this.state.selectedCategory} onChange={this.handleChange.bind(this)}>
+                        <select onChange={this.handleChange.bind(this)}>
+                            <option value="" defaultValue />
                             {this.state.categories.map(category => {
-                                if(category.id === this.state.selectedCategory) {
-                                    console.log(category.name);
-                                    return(<option value={category.id} key={category.id}>{category.name}</option>)
-                                }
-                                else {
-                                    return(<option value={category.id} key={category.id}>{category.name}</option>)
-                                }
+                                return(<option value={category.id} key={category.id}>{category.name}</option>)
                                 })}
                         </select>
                     </label>
