@@ -3,6 +3,8 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import {CategoryCmp} from "./CategoryCmp";
 import {ItemCart} from "./ItemCart"
+import {AddCategory} from "./AddCategory";
+import {AddItem} from "./AddItem";
 
 export class Items extends React.Component {
 
@@ -11,7 +13,9 @@ export class Items extends React.Component {
         this.state = {
             data: [],
             categoryMounted: false,
-            itemCart: []
+            itemCart: [],
+            showAddCategory: false,
+            showAddItem: false
         };
 
     }
@@ -71,18 +75,40 @@ export class Items extends React.Component {
         }
     };
 
+    handleNewCategory(){
+        this.setState({showAddCategory: !this.state.showAddCategory});
+    }
+    handleNewItem(){
+        this.setState({showAddItem: !this.state.showAddItem });
+    }
+
     render() {
+        let addCategory = '';
+        let addItem = '';
+        if(this.state.showAddCategory){
+            addCategory = (<AddCategory />);
+        }
+        if(this.state.showAddItem) {
+            addItem = (<AddItem />);
+        }
 
         return (
             <div className="container">
-                <h3>Lainatavarat</h3>
-                <Link className="list-group-item list-group-item-info" to={"/categories/add"}>+ Uusi kategoria</Link>
-                <ul className="list-group">
-                    {this.state.data.map(category =>
-                       <CategoryCmp key={category.category.id} category={category} addToCart={this.addToCartCallback} />
-                    )}
-                </ul>
-                <ItemCart itemCart={this.state.itemCart} emptyCart={this.emptyCartCallback} />
+                <div className="col-sm-6">
+                    <h3>Lainatavarat</h3>
+                    <button onClick={this.handleNewCategory.bind(this)} className="list-group-item list-group-item-info">+ Uusi kategoria</button>
+                    {addCategory}
+                    <button onClick={this.handleNewItem.bind(this)} className="list-group-item list-group-item-info">+ Uusi tavara</button>
+                    {addItem}
+                    <ul className="list-group">
+                        {this.state.data.map(category =>
+                           <CategoryCmp key={category.category.id} category={category} addToCart={this.addToCartCallback} />
+                        )}
+                    </ul>
+                </div>
+                <div className="col-sm-6">
+                    <ItemCart itemCart={this.state.itemCart} emptyCart={this.emptyCartCallback} />
+                </div>
             </div>
         );
     }

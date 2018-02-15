@@ -22,7 +22,7 @@ export class ReservationCmp extends React.Component {
                 Tavarat:
                 {this.state.reservation.items.map(item => {
                     return(
-                        <li>{item.name}</li>
+                        <li className="list-group-item">{item.name}</li>
                     );
                 })}
                 <br />

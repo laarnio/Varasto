@@ -12,6 +12,7 @@ import {Items} from "./components/Items";
 import {AddItem} from "./components/AddItem";
 import {AddCategory} from "./components/AddCategory";
 import {ItemCmp} from "./components/ItemCmp";
+import {Reservations} from "./components/Reservations";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
                 <Route path={"/categories/add"} component={AddCategory} />
                 <Route path={"/categories/:id/add"} component={AddItem} />
                 <Route path={"/categories/:categoryId/items/:item"} component={ItemCmp} />
+                <Route path={"/reservations"} component={Reservations} />
             </div>
         </Router>
     );

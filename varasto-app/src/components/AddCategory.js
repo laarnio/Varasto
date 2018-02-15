@@ -31,7 +31,7 @@ export class AddCategory extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="list-group-item">
                 <h3>Lisää uusi kategoria</h3>
                 <form onSubmit={this.handleSubmit}>
 

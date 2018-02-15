@@ -1,6 +1,7 @@
 import React from "react";
 import {ItemCmp} from "./ItemCmp";
 import {Link} from "react-router-dom";
+import {AddItem} from "./AddItem";
 
 
 export class CategoryCmp extends React.Component {
@@ -23,13 +24,17 @@ export class CategoryCmp extends React.Component {
         this.props.addToCart(item);
     };
 
+
     render() {
+
         if(!this.state.showItem){
             return (<li onClick={this.handleClick.bind(this)} className="list-group-item" >{this.state.category.category.name}</li>)
         }
+
         return(
             <li onClick={this.handleClick.bind(this)} className="list-group-item" >{this.state.category.category.name}
                 <ul>
+                    {!this.state.category.items.length ? "Tässä kategoriassa ei ole tuotteita" : ""}
                     {
                         this.state.category.items.map(item => {
                             return (
@@ -38,7 +43,6 @@ export class CategoryCmp extends React.Component {
                         })
 
                     }
-                    <Link className="list-group-item list-group-item-info" to={"/categories/"+this.state.category.category.id+"/add"}>+ Lisää uusi</Link>
                 </ul>
 
             </li>

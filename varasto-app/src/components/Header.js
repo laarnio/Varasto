@@ -9,6 +9,7 @@ export const Header = (props) => {
                     <ul className="nav navbar-nav">
                         <li><Link to={"/"}>Etusivu</Link></li>
                         <li><Link to={"/items"}>Lainatavarat</Link></li>
+                        <li><Link to={"/reservations"}>Varaukset</Link></li>
                     </ul>
                 </div>
                 <ul className="nav navbar-nav navbar-right">

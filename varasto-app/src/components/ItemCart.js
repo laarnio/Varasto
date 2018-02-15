@@ -32,6 +32,16 @@ export class ItemCart extends React.Component {
         this.props.emptyCart();
     }
 
+    handleExistingUserSubmit = (e) => {
+        if(!this.state.selectedUser) {
+            e.preventDefault();
+            alert('Valitse lainaaja!')
+            return;
+        }
+
+        this.submitReservation(this.state.selectedUser);
+    };
+
     handleNewUserSubmit = (e) => {
         if(!this.name.value) {
             alert('Aseta lainaajan nimi!');
@@ -49,21 +59,29 @@ export class ItemCart extends React.Component {
             alert('Lainakori on tyhjä!');
             return;
         }
-        //TODO: tähän user-POST requestit luomaan uusi asukas
-        let borrower = {
-            id: 2,
+
+        //Luodaan uusi asukas
+        let newUserRef = {
             name: this.name.value,
             apartment: this.apartment.value,
-            phoneNumber: this.phoneNumber.value
+            phoneNumber: this.phoneNumber.value,
+            isAdmin: false
         };
-        this.submitReservation(borrower);
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/users',
+            data: newUserRef
+        }).then(res => {
+            //Ja tehdään tavaroista varaukset hänelle
+            this.submitReservation(res.data);
+        });
 
 
 
     };
 
     submitReservation(borrower) {
-
+        //TODO: tähän autentikoinnista user-tiedot, kuka lainaa.
         let placeHolder = {
             id: 1,
             name: 'matti',
@@ -96,16 +114,6 @@ export class ItemCart extends React.Component {
 
     }
 
-    handleExistingUserSubmit = (e) => {
-        if(!this.state.selectedUser) {
-            e.preventDefault();
-            alert('Valitse lainaaja!')
-            return;
-        }
-
-        this.submitReservation(this.state.selectedUser);
-    };
-
     handleChange(e) {
         console.log(e.target.value);
         this.state.users.forEach(user => {
@@ -113,7 +121,6 @@ export class ItemCart extends React.Component {
                 this.setState({selectedUser: user});
             }
         });
-        //this.setState({ selectedUser: e.target.value });
     }
 
     handleBorrow() {
