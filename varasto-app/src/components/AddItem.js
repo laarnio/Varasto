@@ -44,7 +44,6 @@ export class AddItem extends React.Component {
     handleChange(e) {
         this.setState({ selectedCategory: e.target.value});
     }
-    //TODO: miksi nuo selectissä olevat iffit.
     render() {
         return (
             <div className="list-group-item">

@@ -1,7 +1,6 @@
 import React from "react";
 import {ItemCmp} from "./ItemCmp";
 import {Link} from "react-router-dom";
-import {AddItem} from "./AddItem";
 
 
 export class CategoryCmp extends React.Component {
@@ -14,7 +13,8 @@ export class CategoryCmp extends React.Component {
         };
     }
 
-    handleClick() {
+    handleClick(ev) {
+        ev.stopPropagation();
         this.setState({showItem: !this.state.showItem});
     }
 
