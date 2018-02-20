@@ -7,6 +7,7 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,7 +17,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name, meta;
+    private String name;
+    @OneToMany
+    private List<MetaInfo> metaInfos;
     @NotAudited
     private boolean borrowed;
 
