@@ -32,7 +32,7 @@ export class ItemCmp extends React.Component {
             data: itemRef
         }).then(() =>
         this.setState({item: itemRef}));
-        this.handleClick(ev)
+        this.handleClick(ev);
     }
 
     handleAddToCart(ev) {
@@ -43,12 +43,36 @@ export class ItemCmp extends React.Component {
         ev.stopPropagation();
         this.setState({showMeta: !this.state.showMeta});
     }
+    handleNewMeta = (ev) => {
+        ev.preventDefault();
+        if(!this.meta.value) {
+            alert("Metatieto ei voi olla tyhjä!");
+            return;
+        }
+        let tmp = this.state.item;
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/categories/' + this.props.categoryId + '/items/' + this.props.item.id + '/metainfos/',
+            data: {meta: this.meta.value}
+        }).then(res => {
+                tmp.metaInfos.push(res.data);
+                console.log(tmp);
+                axios({
+                    method: 'put',
+                    url: 'http://localhost:8080/categories/' + this.props.categoryId + '/items/' + this.props.item.id,
+                    data: tmp
+                });
+                this.setState({item: tmp});
+            }
+        );
+    };
 
     render() {
         let tmp ='';
         let listItem = '';
         let showMetaBtn = (<button onClick={this.handleShowMeta.bind(this)} className="btn btn-primary">Näytä tietoja</button>);
         let meta = '';
+        let newMetaBtn = '';
 
         //TODO: oma CMP Metainfolle tästä.
         if(this.state.showMeta) {
@@ -56,7 +80,16 @@ export class ItemCmp extends React.Component {
                 showMetaBtn = (<button onClick={this.handleShowMeta.bind(this)} className="btn btn-primary">Piilota tiedot</button>);
                 console.log(metaInfo.meta);
                 return( <li key={metaInfo.id} className="list-group-item">{metaInfo.created}: {metaInfo.meta}</li>);
-            })
+            });
+            newMetaBtn = (
+                <form onSubmit={this.handleNewMeta.bind(this)}>
+                    <label>
+                        Lisää uusi metatieto:
+                        <input ref={(meta) => this.meta = meta} type='text' />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+            );
         }
 
         if(this.props.item.borrowed) {
@@ -75,6 +108,8 @@ export class ItemCmp extends React.Component {
                     <button onClick={this.handleAddToCart.bind(this)} className="btn btn-primary">Lisää lainakoriin</button>
                     {showMetaBtn}
                     {meta}
+                    {newMetaBtn}
+
                 </div>);
         }
         if(this.state.showItem) {
