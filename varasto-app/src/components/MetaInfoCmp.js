@@ -1,5 +1,7 @@
 import React from "react";
 
+
+//Component to display metainfo ( creation date and the actual info)
 export class MetaInfoCmp extends React.Component {
     constructor(props) {
         super(props);

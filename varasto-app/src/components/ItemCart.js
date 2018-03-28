@@ -70,7 +70,7 @@ export class ItemCart extends React.Component {
             return;
         }
 
-        //Luodaan uusi asukas
+        //Create new borrower
         let newUserRef = {
             name: this.name.value,
             apartment: this.apartment.value,
@@ -82,7 +82,7 @@ export class ItemCart extends React.Component {
             url: 'http://localhost:8080/api/users',
             data: newUserRef
         }).then(res => {
-            //Ja tehdään tavaroista varaukset hänelle
+            //And make reservations for the items to the new user
             console.log("Uusi lainaaja: " + res.data);
             this.submitReservation(res.data);
         });
@@ -106,13 +106,14 @@ export class ItemCart extends React.Component {
         };
 
         console.log(newReservationRef.items);
-        //Muokataan data oikeanlaiseksi put-requestia varten.
+        //Edit the data for put-request
         //TODO: tilapäinen purkkaratkaisu, tämä korjattava
         newReservationRef.items.forEach(item => {
             item.category = {
                 id: item.category
             }
         });
+        //Mark the items as borrowed, and create new reservation for the borrower from the borrowed items
         axios({
            method: 'put',
             url: 'http://localhost:8080/api/items',

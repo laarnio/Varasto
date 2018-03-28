@@ -6,6 +6,13 @@ import {ItemCart} from "./ItemCart"
 import {AddCategory} from "./AddCategory";
 import {AddItem} from "./AddItem";
 
+
+//Items is the parent component of the whole items-page
+//It includes:
+//  Fetching categories and items from API
+//  Displaying Categories / items
+//  Displaying adding items/categories
+//  Displaying itemcart
 export class Items extends React.Component {
 
     constructor(props) {
@@ -29,11 +36,11 @@ export class Items extends React.Component {
     }
 
 
-
+    //Fetch categories and their items from API
     fetchData() {
         let tempCategories = [];
 
-        axios.get('http://localhost:8080/categories')
+        axios.get('http://localhost:8080/api/categories')
             .then(res => {
                 res.data.forEach(category => {
                     let tempData = {
@@ -43,7 +50,7 @@ export class Items extends React.Component {
                     tempData.category = category;
 
                     let id = category.id;
-                    let url = 'http://localhost:8080/categories/' + id + '/items';
+                    let url = 'http://localhost:8080/api/categories/' + id + '/items';
 
                     axios.get(url)
                         .then(res => {
@@ -60,6 +67,7 @@ export class Items extends React.Component {
         this.setState({itemCart: []})
     };
 
+    //Check if item is already in itemcart and if not, add it there
     addToCartCallback = (item) => {
         let duplicate = false;
         this.state.itemCart.forEach(i => {
@@ -75,10 +83,12 @@ export class Items extends React.Component {
         }
     };
 
-    handleNewCategory(){
+    //onClick handler to show and hide category adding component
+    handleShowNewCategory(){
         this.setState({showAddCategory: !this.state.showAddCategory});
     }
-    handleNewItem(){
+    //onClick handler to show and hide item adding component
+    handleShowNewItem(){
         this.setState({showAddItem: !this.state.showAddItem });
     }
 
@@ -96,9 +106,9 @@ export class Items extends React.Component {
             <div className="container">
                 <div className="col-sm-6">
                     <h3>Lainatavarat</h3>
-                    <button onClick={this.handleNewCategory.bind(this)} className="list-group-item list-group-item-info">+ Uusi kategoria</button>
+                    <button onClick={this.handleShowNewCategory.bind(this)} className="list-group-item list-group-item-info">+ Uusi kategoria</button>
                     {addCategory}
-                    <button onClick={this.handleNewItem.bind(this)} className="list-group-item list-group-item-info">+ Uusi tavara</button>
+                    <button onClick={this.handleShowNewItem.bind(this)} className="list-group-item list-group-item-info">+ Uusi tavara</button>
                     {addItem}
                     <ul className="list-group">
                         {this.state.data.map(category =>

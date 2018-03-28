@@ -21,20 +21,20 @@ export class ItemCmp extends React.Component {
         ev.stopPropagation();
         this.setState({showItem: !this.state.showItem});
     }
-
+    //Handler for returning items
     handleReturn(ev) {
         ev.stopPropagation();
         let itemRef = this.state.item;
         itemRef.borrowed = false;
         axios({
             method: 'put',
-            url: 'http://localhost:8080/categories/' + this.props.categoryId + '/items/' + this.props.item.id,
+            url: 'http://localhost:8080/api/categories/' + this.props.categoryId + '/items/' + this.props.item.id,
             data: itemRef
         }).then(() =>
         this.setState({item: itemRef}));
-        this.handleClick(ev);
     }
 
+    //Add item to cart -handler
     handleAddToCart(ev) {
         ev.stopPropagation();
         this.props.addToCart(this.props.item);
@@ -52,16 +52,17 @@ export class ItemCmp extends React.Component {
         let tmp = this.state.item;
         axios({
             method: 'post',
-            url: 'http://localhost:8080/categories/' + this.props.categoryId + '/items/' + this.props.item.id + '/metainfos/',
+            url: 'http://localhost:8080/api/categories/' + this.props.categoryId + '/items/' + this.props.item.id + '/metainfos/',
             data: {meta: this.meta.value}
         }).then(res => {
                 tmp.metaInfos.push(res.data);
                 console.log(tmp);
                 axios({
                     method: 'put',
-                    url: 'http://localhost:8080/categories/' + this.props.categoryId + '/items/' + this.props.item.id,
+                    url: 'http://localhost:8080/api/categories/' + this.props.categoryId + '/items/' + this.props.item.id,
                     data: tmp
                 });
+                this.meta.value = "";
                 this.setState({item: tmp});
             }
         );
@@ -72,7 +73,7 @@ export class ItemCmp extends React.Component {
         let listItem = '';
         let showMetaBtn = (<button onClick={this.handleShowMeta.bind(this)} className="btn btn-primary">Näytä tietoja</button>);
         let meta = '';
-        let newMetaBtn = '';
+        let newMetaForm = '';
 
         //TODO: oma CMP Metainfolle tästä.
         if(this.state.showMeta) {
@@ -81,7 +82,7 @@ export class ItemCmp extends React.Component {
                 console.log(metaInfo.meta);
                 return( <li key={metaInfo.id} className="list-group-item">{metaInfo.created}: {metaInfo.meta}</li>);
             });
-            newMetaBtn = (
+            newMetaForm = (
                 <form onSubmit={this.handleNewMeta.bind(this)}>
                     <label>
                         Lisää uusi metatieto:
@@ -108,7 +109,7 @@ export class ItemCmp extends React.Component {
                     <button onClick={this.handleAddToCart.bind(this)} className="btn btn-primary">Lisää lainakoriin</button>
                     {showMetaBtn}
                     {meta}
-                    {newMetaBtn}
+                    {newMetaForm}
 
                 </div>);
         }

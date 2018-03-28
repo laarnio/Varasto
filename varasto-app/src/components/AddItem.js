@@ -13,14 +13,14 @@ export class AddItem extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/categories')
+        axios.get('http://localhost:8080/api/categories')
             .then(res => {
                 this.setState({
                     categories: res.data
                 })
             });
     }
-
+    //Submit newly created item
     handleSubmit = (e) => {
         if(!this.name.value) {
             alert("Aseta nimi!");
@@ -36,7 +36,7 @@ export class AddItem extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'http://localhost:8080/categories/' + this.state.selectedCategory+ '/items',
+            url: 'http://localhost:8080/api/categories/' + this.state.selectedCategory+ '/items',
             data: newItemRef
         });
     };

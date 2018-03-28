@@ -1,5 +1,7 @@
 import React from "react";
 
+
+//Reservation component which displays the information of one reservation. Borrower, borrowee and items
 export class ReservationCmp extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,7 @@ export class ReservationCmp extends React.Component {
                 Tavarat:
                 {this.state.reservation.items.map(item => {
                     return(
-                        <li className="list-group-item">{item.name}</li>
+                        <li key={item.id} className="list-group-item">{item.name}</li>
                     );
                 })}
                 <br />
