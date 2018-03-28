@@ -10,15 +10,15 @@ Backend on toteutettu pääosin Spring-bootilla ja Frontend React.js:llä. Täm�
 ## Ominaisuudet
 Tässä osiossa listattuna toteutettuja ominaisuuksia, tulevat ominaisuudet ja jatkokehitysideoita
 ### Valmiit
-Järjestelmään voi lisätä uuden kategorian. 
-Järjestelmään voi lisätä uuden tuotteen, jonkun kategorian alle.
-Järjestelmään voi lisätä uuden henkilön jolle voi lainata tavaroita.(Lainauksen yhteydessä)
-Tuotteita voi lisätä lainakoriin. 
-Tuotteelle voi lisätä meta-dataa(tekstiä), mihin tallentuu luontipäivämäärä, sekä itse metatieto. Tämän tiedon saa näkyviin tavaran kohdalla.
-Lainakorin avulla useita tavaroita voi lainata kerralla yhdelle henkilölle, ja tästä syntyy Varaukset-välilehteen merkintä päivämäärästä, mitkä tuotteet lainattiin, kenelle lainattiin ja kuka luovutti tavarat.(Tällä hetkellä tavaroiden luovuttaja on placeholder, koska autentikointia ei ole vielä toteutettu).
-Lainakorista lainatessa tuotteet, lisätään uuden lainaajan nimi, asunto ja puhelinnumero tietokantaan ja lainataan tuotteet hänelle. Jos lainaaja on jo tietokannassa, voi hänet valita pudotusvalikosta.
-Lainakorin voi tyhjentää.
-Lainassa olevan tavaran saa palautettua "Palauta" -painikkeella tavaran alta. Palautuksesta ei tule erikseen lokimerkintää.
+* Järjestelmään voi lisätä uuden kategorian. 
+* Järjestelmään voi lisätä uuden tuotteen, jonkun kategorian alle.
+* Järjestelmään voi lisätä uuden henkilön jolle voi lainata tavaroita.(Lainauksen yhteydessä)
+*Tuotteita voi lisätä lainakoriin. 
+* Tuotteelle voi lisätä meta-dataa(tekstiä), mihin tallentuu luontipäivämäärä, sekä itse metatieto. Tämän tiedon saa näkyviin tavaran kohdalla.
+* Lainakorin avulla useita tavaroita voi lainata kerralla yhdelle henkilölle, ja tästä syntyy Varaukset-välilehteen merkintä päivämäärästä, mitkä tuotteet lainattiin, kenelle lainattiin ja kuka luovutti tavarat.(Tällä hetkellä tavaroiden luovuttaja on placeholder, koska autentikointia ei ole vielä toteutettu).
+* Lainakorista lainatessa tuotteet, lisätään uuden lainaajan nimi, asunto ja puhelinnumero tietokantaan ja lainataan tuotteet hänelle. Jos lainaaja on jo tietokannassa, voi hänet valita pudotusvalikosta.
+* Lainakorin voi tyhjentää.
+* Lainassa olevan tavaran saa palautettua "Palauta" -painikkeella tavaran alta. Palautuksesta ei tule erikseen lokimerkintää.
 
 ### Tulevat
 
