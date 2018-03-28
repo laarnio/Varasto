@@ -12,7 +12,7 @@ export class AddCategory extends React.Component {
 
     componentDidMount() {
     }
-
+    //Submit newly created category
     handleSubmit = (e) => {
         if(!this.name.value){
             alert("Aseta nimi!");
@@ -24,7 +24,7 @@ export class AddCategory extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'http://localhost:8080/categories/',
+            url: 'http://localhost:8080/api/categories/',
             data: newCategoryRef
         });
     };
