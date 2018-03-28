@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+//TODO: tämä ei toimi nyt jostain syystä kunnolla uuden userin kanssa.
 export class ItemCart extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ export class ItemCart extends React.Component {
         let button = <button onClick={this.handleBorrow.bind(this)} className="btn btn-primary">Lainaa</button>;
         axios({
             method: 'get',
-            url: 'http://localhost:8080/users'
+            url: 'http://localhost:8080/api/users'
         }).then(res => {
 
             this.setState({
@@ -28,8 +28,8 @@ export class ItemCart extends React.Component {
     }
 
     handleEmpty(ev) {
-        ev.stopPropagation();
         this.props.emptyCart();
+        this.setState({itemCart: []});
     }
 
     handleExistingUserSubmit = (e) => {
@@ -38,24 +38,34 @@ export class ItemCart extends React.Component {
             alert('Valitse lainaaja!')
             return;
         }
-
+        else if(!this.props.itemCart.length) {
+            e.preventDefault();
+            alert('Lainakori on tyhjä!');
+            return;
+        }
+        console.log(this.state.selectedUser);
         this.submitReservation(this.state.selectedUser);
     };
 
     handleNewUserSubmit = (e) => {
+        //e.preventDefault();
         if(!this.name.value) {
+            e.preventDefault();
             alert('Aseta lainaajan nimi!');
             return;
         }
         else if(!this.apartment.value) {
+            e.preventDefault();
             alert('Aseta lainaajan asunto!');
             return;
         }
         else if(!this.phoneNumber.value) {
+            e.preventDefault();
             alert('Aseta lainaajan puhelinnumero!');
             return;
         }
-        else if(!this.state.itemCart){
+        else if(!this.props.itemCart.length){
+            e.preventDefault();
             alert('Lainakori on tyhjä!');
             return;
         }
@@ -69,13 +79,13 @@ export class ItemCart extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'http://localhost:8080/users',
+            url: 'http://localhost:8080/api/users',
             data: newUserRef
         }).then(res => {
             //Ja tehdään tavaroista varaukset hänelle
+            console.log("Uusi lainaaja: " + res.data);
             this.submitReservation(res.data);
         });
-
 
 
     };
@@ -88,29 +98,40 @@ export class ItemCart extends React.Component {
             apartment: 'yes',
             phoneNumber: '30'
         };
-
+        console.log("Borrower: " + borrower);
         let newReservationRef = {
             giver: placeHolder,
             borrower: borrower,
-            items: this.state.itemCart
+            items: this.props.itemCart
         };
 
+        console.log(newReservationRef.items);
+        //Muokataan data oikeanlaiseksi put-requestia varten.
+        //TODO: tilapäinen purkkaratkaisu, tämä korjattava
         newReservationRef.items.forEach(item => {
-            let temp = item;
-            temp.borrowed = true;
-            axios({
-                method: 'put',
-                url: 'http://localhost:8080/categories/' + item.category + '/items/' + item.id,
-                data: temp
+            item.category = {
+                id: item.category
+            }
+        });
+        axios({
+           method: 'put',
+            url: 'http://localhost:8080/api/items',
+            data: newReservationRef.items
+        }).then(res => {
+
+            newReservationRef.items = res.data;
+            newReservationRef.items.forEach(item => {
+                item.category = null;
             });
-            item.category = null;
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/api/reservations',
+                data: newReservationRef
+            });
+
         });
 
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/reservations',
-            data: newReservationRef
-        });
+
 
     }
 
