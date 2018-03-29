@@ -21,10 +21,49 @@ Tässä osiossa listattuna toteutettuja ominaisuuksia, tulevat ominaisuudet ja j
 * Lainassa olevan tavaran saa palautettua "Palauta" -painikkeella tavaran alta. Palautuksesta ei tule erikseen lokimerkintää.
 
 ### Tulevat
-
+* Autentikointi järjestelmän käyttäjille, eli asukastoimikuntalaisille
+* Tavaroiden poisto
+* Lainakorin staten tallennus vielä ylemmälle tasolle, jotta lainakori ei tyhjene kun käy muilla välilehdillä
+* Lainassa olevasta tuotteesta näkisi suoraa kenellä lainassa(Jotta ei tarvitse välttämättä katsoa varausvälilehdeltä)
 ### Jatkokehitys
+
+### Ongelmat
+* Bäkkärin kanssa joku ongelma, osa requesteista peruuntuu / ei mene perille. Tilanne missä tuote varataan, ja luodan uusi reservation
 
 ## VarastoApp
 
 ## VarastoApi
 
+### Requestit
+#### Category
+GET "/api/categories"                                               //Hakee kaikki kategoriat
+GET "/api/categories/{id}"                                          //Hakee yhden kategorian
+POST "/api/categories"                                              //Lisää kategorian
+PUT "/api/categories/{id}"                                          //Päivittää kategorian
+DELETE "/api/categories/{id}"                                       //Poistaa kategorian
+
+#### Item
+GET "/api/categories/{categoryId}/items"            
+GET "/api/categories/{categoryId}/items/{id}"
+POST "/api/categories/{categoryId}/items"
+PUT "/api/categories/{categoryId}/items/{id}"
+PUT "/api/items"
+DELETE "/api/categories/{categoryId}/items/{id}"
+
+#### Metainfo
+GET "/api/categories/{categoryId}/items/{itemId}/megainfos" 
+GET "/api/categories/{categoryId}/items/{itemId}/megainfos/{id}"
+POST "/api/categories/{categoryId}/items/{itemId}/megainfos"
+PUT "/api/categories/{categoryId}/items/{itemId}/megainfos/{id}"
+
+#### Reservation
+GET "/api/reservations"
+GET "/api/reservations/{id}"
+POST "/api/reservations"
+
+#### User
+GET "/api/users"
+GET "/api/users/{id}"
+POST "/api/users"
+PUT "/api/users/{id}"
+DELETE "/api/users/{id}"
