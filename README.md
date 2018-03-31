@@ -25,6 +25,8 @@ Tässä osiossa listattuna toteutettuja ominaisuuksia, tulevat ominaisuudet ja j
 * Tavaroiden poisto
 * Lainakorin staten tallennus vielä ylemmälle tasolle, jotta lainakori ei tyhjene kun käy muilla välilehdillä
 * Lainassa olevasta tuotteesta näkisi suoraa kenellä lainassa(Jotta ei tarvitse välttämättä katsoa varausvälilehdeltä)
+* Käyttäjän voi poistaa
+* Käyttäjän tietoja voi muokata
 ### Jatkokehitys
 
 ### Ongelmat
@@ -37,33 +39,70 @@ Tässä osiossa listattuna toteutettuja ominaisuuksia, tulevat ominaisuudet ja j
 ### Requestit
 #### Category
 GET "/api/categories"                                               //Hakee kaikki kategoriat
+
 GET "/api/categories/{id}"                                          //Hakee yhden kategorian
+
 POST "/api/categories"                                              //Lisää kategorian
+
 PUT "/api/categories/{id}"                                          //Päivittää kategorian
+
 DELETE "/api/categories/{id}"                                       //Poistaa kategorian
 
+
 #### Item
-GET "/api/categories/{categoryId}/items"            
-GET "/api/categories/{categoryId}/items/{id}"
-POST "/api/categories/{categoryId}/items"
-PUT "/api/categories/{categoryId}/items/{id}"
-PUT "/api/items"
-DELETE "/api/categories/{categoryId}/items/{id}"
+GET "/api/categories/{categoryId}/items"            //Hakee tietyn kategorian aikki tavarat
+
+GET "/api/categories/{categoryId}/items/{id}"       //Hakee tietyn tavaran
+
+POST "/api/categories/{categoryId}/items"           //Lisää uuden tavaran tiettyyn kategoriaan
+
+PUT "/api/categories/{categoryId}/items/{id}"       //Päivittää tiettyä tavaraa
+
+PUT "/api/items"                                    //Päivittää annetun tavaralistan kaikkien tavaroiden borrowed-arvon trueksi
+
+DELETE "/api/categories/{categoryId}/items/{id}"    //Poistaa tietyn tavaran
 
 #### Metainfo
-GET "/api/categories/{categoryId}/items/{itemId}/megainfos" 
-GET "/api/categories/{categoryId}/items/{itemId}/megainfos/{id}"
-POST "/api/categories/{categoryId}/items/{itemId}/megainfos"
-PUT "/api/categories/{categoryId}/items/{itemId}/megainfos/{id}"
+GET "/api/categories/{categoryId}/items/{itemId}/metainfos"     //Hakee tietyn tavaran kaikki metainfot
+
+GET "/api/categories/{categoryId}/items/{itemId}/metainfos/{id}"    //Hakee tietyn tavaran tietyn metainfon
+
+POST "/api/categories/{categoryId}/items/{itemId}/metainfos"        //Lisää tietylle tavaralle metainfon
+
+PUT "/api/categories/{categoryId}/items/{itemId}/metainfos/{id}"    //Päivittää metainfoa
+
 
 #### Reservation
-GET "/api/reservations"
-GET "/api/reservations/{id}"
-POST "/api/reservations"
+GET "/api/reservations"       //Hakee kaikki tehdyt lainaukset
+
+GET "/api/reservations/{id}"  //Hakee tietyn lainauksen
+
+POST "/api/reservations"      //Lisää uuden lainauksen
 
 #### User
-GET "/api/users"
-GET "/api/users/{id}"
-POST "/api/users"
-PUT "/api/users/{id}"
-DELETE "/api/users/{id}"
+GET "/api/users"    //Hakee kaikki käyttäjät
+
+GET "/api/users/{id}"   //Hakee tietyn käyttäjän
+
+POST "/api/users"       //Lisää käyttäjän
+
+PUT "/api/users/{id}"   //Päivittää käyttäjää
+
+DELETE "/api/users/{id}"    //Poistaa käyttäjän
+
+
+## Kuvia järjestelmästä:
+
+![alt text](https://www.dropbox.com/s/tjgpyleqjosre0x/Screenshot%202018-03-31%2020.48.10.png?raw=1)
+- - - - 
+![alt text](https://www.dropbox.com/s/q5upt4nv2g6dpp6/Screenshot%202018-03-31%2020.49.19.png?raw=1)
+- - - - 
+![alt text](https://www.dropbox.com/s/t2b7w1qj470k2rm/Screenshot%202018-03-31%2020.50.41.png?raw=1)
+- - - -
+![alt text](https://www.dropbox.com/s/7jduo91ci54eif8/Screenshot%202018-03-31%2020.50.57.png?raw=1)
+- - - -
+![alt text](https://www.dropbox.com/s/at9b9wacq2eat0n/Screenshot%202018-03-31%2020.51.09.png?raw=1)
+- - - - 
+![alt text](https://www.dropbox.com/s/9cgwxqnsbzpu2zx/Screenshot%202018-03-31%2020.51.43.png?raw=1)
+- - - -
+![alt text](https://www.dropbox.com/s/r3k3p73ukphn0mr/Screenshot%202018-03-31%2020.52.17.png?raw=1)
