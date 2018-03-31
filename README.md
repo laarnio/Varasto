@@ -93,22 +93,29 @@ DELETE "/api/users/{id}"    //Poistaa käyttäjän
 ## VarastoApp kuvia
 
 ![alt text](https://www.dropbox.com/s/tjgpyleqjosre0x/Screenshot%202018-03-31%2020.48.10.png?raw=1)
+
 Lainakoriin lisätty tuote Pöytä
 - - - - 
 ![alt text](https://www.dropbox.com/s/q5upt4nv2g6dpp6/Screenshot%202018-03-31%2020.49.19.png?raw=1)
+
 Lainaa-nappia painettu, voidaan valita listasta joko tallennettu käyttäjä, tai voidaan täyttää tiedot uudesta käyttäjästä.
 - - - - 
 ![alt text](https://www.dropbox.com/s/t2b7w1qj470k2rm/Screenshot%202018-03-31%2020.50.41.png?raw=1)
+
 Varaus-listaus, missä näkyy lainauspäivämäärä, kuka lainasi, kuka luovutti tavarat ja mitkä tavarat lainattiin.
 - - - -
 ![alt text](https://www.dropbox.com/s/7jduo91ci54eif8/Screenshot%202018-03-31%2020.50.57.png?raw=1)
+
 Uuden kategorian lisääminen.
 - - - -
 ![alt text](https://www.dropbox.com/s/at9b9wacq2eat0n/Screenshot%202018-03-31%2020.51.09.png?raw=1)
+
 Uuden tavaran lisääminen.
 - - - - 
 ![alt text](https://www.dropbox.com/s/9cgwxqnsbzpu2zx/Screenshot%202018-03-31%2020.51.43.png?raw=1)
+
 Tavarasta metatiedot esille, painamalla näytä-tietoja painiketta.
 - - - -
 ![alt text](https://www.dropbox.com/s/r3k3p73ukphn0mr/Screenshot%202018-03-31%2020.52.17.png?raw=1)
+
 Tavaraan lisätty kaksi metatietoa. Metatiedot saa piiloon painamalla Piilota tiedot -painiketta.
