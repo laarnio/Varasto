@@ -28,7 +28,8 @@ Tässä osiossa listattuna toteutettuja ominaisuuksia, tulevat ominaisuudet ja j
 * Käyttäjän voi poistaa
 * Käyttäjän tietoja voi muokata
 ### Jatkokehitys
-
+* TTY:n kurssilla Mobiiliohjelmointi harjoitustyön aiheeksi valitsin tämän saman järjestelmän frontin tekemisen androidille.
+* Lainassa oleville tavaroille voisi tulla värikoodaukset siten, että väri esimerkiksi tummenee, mitä kauemmin se on ollut kerralla lainassa. Eli asukastoimikuntalaiset huomaisivat helposti, jos jokin tavara on ollut todella kauan jollain lainassa.
 ### Ongelmat
 * Bäkkärin kanssa joku ongelma, osa requesteista peruuntuu / ei mene perille. Tilanne missä tuote varataan, ja luodan uusi reservation
 
